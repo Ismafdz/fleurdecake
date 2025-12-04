@@ -30,7 +30,7 @@
 
         <div class="w-full max-w-md px-8 py-10 bg-fleur-dark text-fleur-light shadow-2xl rounded-3xl"> 
             
-            <form method="POST" action="#">
+            <form method="POST" action="{{ route('booking.confirm') }}">
                 @csrf
                 
                 {{-- SECTION 1: BOOKING DETAILS --}}
