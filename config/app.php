@@ -105,6 +105,7 @@ return [
         ),
     ],
 
+    'public_path' => env('VERCEL_OUTPUT_DIR') ?: base_path('public'),
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver
