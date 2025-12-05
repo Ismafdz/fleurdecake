@@ -15,11 +15,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // 1. Buat User Admin (gunakan user yang sudah Anda definisikan)
+        $testUser = User::factory()->create([
+            'name' => 'Admin Fleur', // Ganti namanya agar lebih jelas sebagai penulis
+            'username' => 'adminfleur', // Tambahkan username jika diperlukan oleh model Anda
+            'email' => 'admin@fleurdecake.com', // Ganti email untuk pengujian
         ]);
+        
+        // 2. Panggil Seeder Artikel
+        // Kita passing ID user ini ke ArticleSeeder agar artikel memiliki penulis
+        $this->call(ArticleSeeder::class, ['authorId' => $testUser->id]);
     }
 }

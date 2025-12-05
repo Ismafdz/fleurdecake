@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 
 // =======================================================
@@ -9,6 +10,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('homepage'); 
 })->name('home');
+
+// TENTANG KAMI
+Route::get('/about', function () {
+    return view('about'); 
+})->name('about');
+
+// ARTIKEL
+Route::controller(ArticleController::class)->group(function () {
+    Route::get('/articles', 'index')->name('articles.index');
+    Route::get('/articles/{slug}', 'show')->name('articles.show'); 
+});
 
 
 // =======================================================

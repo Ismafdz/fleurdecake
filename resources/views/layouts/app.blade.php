@@ -1,3 +1,7 @@
+<?php
+
+use Illuminate\Support\Str; 
+?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -7,23 +11,28 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     
-    {{-- Menggunakan warna background kustom yang sudah kita definisikan --}}
     <body class="font-sans antialiased bg-fleur-light"> 
-
-        {{-- Kita hapus navigasi bawaan Breeze di sini (seperti tag <nav>) --}}
         
-        <!-- Konten Utama -->
+        
+        <?php 
+            $currentUri = request()->route() ? request()->route()->uri : '';
+        ?>
+
+        @unless (Str::startsWith($currentUri, 'articles/') || request()->routeIs('home'))
+            @include('partials.navbar-global')
+        @endunless
+        
         <main>
-            {{-- Ini adalah tempat konten dari @section('content') di dashboard.blade.php akan dimasukkan --}}
             @yield('content')
         </main>
+        
+        @include('partials.footer') 
+        
     </body>
 </html>
