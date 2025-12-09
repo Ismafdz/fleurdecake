@@ -5,7 +5,7 @@
              <!-- Buttons -->
              <a href="{{ route('dashboard') }}" class="block w-full text-center py-2 px-4 bg-[#795548] text-white rounded-full font-bold hover:bg-[#5D4037]">Back</a>
              <a href="{{ route('profile.edit') }}" class="block w-full text-center py-2 px-4 bg-[#795548] text-white rounded-full font-bold hover:bg-[#5D4037]">My Profile</a>
-             <a href="#" class="block w-full text-center py-2 px-4 bg-[#795548] text-white rounded-full font-bold hover:bg-[#5D4037]">Transaction History</a>
+             <a href="{{ route('transactions.index') }}" class="block w-full text-center py-2 px-4 bg-[#795548] text-white rounded-full font-bold hover:bg-[#5D4037]">Transaction History</a>
         </div>
 
         <!-- Main Content -->

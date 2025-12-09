@@ -56,10 +56,22 @@ Route::get('/package/{slug}/book', function ($slug) {
     return view('booking-form', ['slug' => $slug]); 
 })->middleware(['auth'])->name('package.book'); 
 
+use App\Models\Transaction; // Import Model
+
+// ...
+
 // Rute Konfirmasi Booking (POST) - Menerima data dari formulir
 Route::post('/booking/confirm', function (Request $request) {
-    // --- Logika Pemrosesan Data di sini ---
-    // (Dalam aplikasi nyata, ini akan disimpan ke database)
+    
+    // Simpan ke database
+    Transaction::create([
+        'user_id' => auth()->id(),
+        'package_name' => $request->package_class ?? 'Unknown Package',
+        'number_of_people' => $request->num_people ?? 1,
+        'visit_date' => $request->visit_date ?? now(),
+        'total_price' => str_replace(['Rp', '.', ' '], '', $request->total_payment ?? '0'), // Bersihkan format currency
+        'status' => 'pending',
+    ]);
     
     // Kita lempar data konfirmasi ke view booking-confirmation
     $data = [
@@ -73,11 +85,19 @@ Route::post('/booking/confirm', function (Request $request) {
     return view('booking-confirmation', $data);
 })->middleware(['auth'])->name('booking.confirm');
 
+use App\Http\Controllers\TransactionController; // Import Controller
+
+// ... existing code ...
+
 // Rute Profile Management
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // Transaction History
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+    Route::get('/transactions/{transaction}', [TransactionController::class, 'show'])->name('transactions.show');
 });
 
 // Memuat semua rute Login, Register, Logout dari Laravel Breeze.

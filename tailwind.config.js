@@ -14,9 +14,9 @@ export default {
             colors: {
                 'fleur-dark': '#8B4513', 
                 'fleur-light': '#FAF0E6',
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
             },
         },
     },
