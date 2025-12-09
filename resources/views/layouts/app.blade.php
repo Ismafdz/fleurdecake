@@ -29,6 +29,7 @@ use Illuminate\Support\Str;
         @endunless
         
         <main>
+            {{ $slot ?? '' }}
             @yield('content')
         </main>
         

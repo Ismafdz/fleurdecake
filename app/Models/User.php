@@ -24,6 +24,7 @@ class User extends Authenticatable
         'nomor_telepon', 
         'tanggal_lahir',
         'password',
+        'profile_photo_path',
     ];
 
     /**
