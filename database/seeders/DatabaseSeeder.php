@@ -3,28 +3,32 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
     public function run(): void
     {
-<<<<<<< HEAD
+        // 1. Buat user admin (cek dulu supaya aman)
+        $adminUser = User::where('username', 'admin')
+                         ->orWhere('email', 'admindua@fleurdecake.com')
+                         ->first();
+
+        if (!$adminUser) {
+            $adminUser = User::create([
+                'name' => 'Admin Fleur',
+                'username' => 'admin',
+                'email' => 'admindua@fleurdecake.com',
+                'password' => bcrypt('password123'),
+            ]);
+        }
+
+        // 2. Panggil AdminSeeder (cek username/email di dalam AdminSeeder)
         $this->call([
             AdminSeeder::class,
-=======
-        // 1. Buat User Admin (gunakan user yang sudah Anda definisikan)
-        $testUser = User::factory()->create([
-            'name' => 'Admin Fleur', // Ganti namanya agar lebih jelas sebagai penulis
-            'username' => 'adminfleur', // Tambahkan username jika diperlukan oleh model Anda
-            'email' => 'admin@fleurdecake.com', // Ganti email untuk pengujian
->>>>>>> cda6d60ecd0c3aa584e635b52917df39f250bdda
         ]);
-        
-        // 2. Panggil Seeder Artikel
-        // Kita passing ID user ini ke ArticleSeeder agar artikel memiliki penulis
-        $this->call(ArticleSeeder::class, ['authorId' => $testUser->id]);
+
+        // 3. Panggil ArticleSeeder (tidak perlu passing ID)
+        $this->call(ArticleSeeder::class);
     }
 }
