@@ -97,56 +97,5 @@
         </div>
     </div>
 
-        <footer class="bg-fleur-dark text-white py-8 px-10 text-sm">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-            
-            {{-- Kolom 1: Fleur De Cake (Deskripsi) --}}
-            <div>
-                <h4 class="text-lg font-bold mb-3">Fleur De Cake</h4>
-                <p class="font-light">Bermimpi menciptakan pastry yang berkelanjutan dan berdaya. Cintai apa yang Anda buat dan bersenang-senanglah. Selalu. Dengan bahagia.</p>
-            </div>
-            
-            {{-- Kolom 2: Quick Links --}}
-            <div>
-                <h4 class="text-lg font-bold mb-3">Quick Links</h4>
-                <ul class="space-y-1 font-light">
-                    <li><a href="#">Baking Class</a></li>
-                    <li><a href="#">Discover</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
-                </ul>
-            </div>
-            
-            {{-- Kolom 3: Category Class --}}
-            <div>
-                <h4 class="text-lg font-bold mb-3">Category Class</h4>
-                <ul class="space-y-1 font-light">
-                    <li><a href="#">Pastry Class</a></li>
-                    <li><a href="#">Cake Class</a></li>
-                    <li><a href="#">Baking Package</a></li>
-                </ul>
-            </div>
-            
-            {{-- Kolom 4: Contact Us --}}
-            <div>
-                <h4 class="text-lg font-bold mb-3">Contact Us</h4>
-                <div class="space-y-1 font-light">
-                    <p>+62 812 345 6789</p>
-                    <p>bre@gmail.com</p>
-                    <p class="flex items-center space-x-2"><span class="w-4 h-4 bg-white rounded-full"></span><span>Jl. Puri Indah No. 12</span></p>
-                    <div class="flex space-x-3 mt-2">
-                        <!-- Ikon Sosial Media Placeholder -->
-                        <span class="w-6 h-6 bg-white rounded-full"></span>
-                        <span class="w-6 h-6 bg-white rounded-full"></span>
-                        <span class="w-6 h-6 bg-white rounded-full"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="mt-8 pt-4 border-t border-white border-opacity-30 text-center font-light">
-            &copy; 2024 Fleur De Cake. All Rights Reserved.
-        </div>
-    </footer>
-    
+
 @endsection
