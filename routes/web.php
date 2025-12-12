@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request; // Diperlukan untuk route POST
+use Illuminate\Http\Request;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PaymentController;
 
 // =======================================================
 // RUTE UMUM (Dapat Diakses Guest)
@@ -28,27 +30,23 @@ Route::get('/dashboard', function () {
     return view('dashboard'); 
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Rute Formulir Booking (/package/{slug}/book) - Hanya untuk user yang login
-Route::get('/package/{slug}/book', function ($slug) {
-    return view('booking-form', ['slug' => $slug]); 
-})->middleware(['auth'])->name('package.book'); 
+// Menampilkan form booking
+Route::get('/package/{slug}/book', [BookingController::class, 'form'])
+    ->middleware('auth')
+    ->name('package.book');
 
-// Rute Konfirmasi Booking (POST) - Menerima data dari formulir
-Route::post('/booking/confirm', function (Request $request) {
-    // --- Logika Pemrosesan Data di sini ---
-    // (Dalam aplikasi nyata, ini akan disimpan ke database)
-    
-    // Kita lempar data konfirmasi ke view booking-confirmation
-    $data = [
-        // Menggunakan nilai default jika input tidak terkirim (untuk testing)
-        'package' => $request->package_class ?? 'N/A', 
-        'people' => $request->num_people ?? 'N/A',
-        'date' => $request->visit_date ?? 'N/A',
-        'total' => $request->total_payment ?? 'N/A',
-    ];
+// Memproses booking
+Route::post('/booking/confirm', [BookingController::class, 'confirm'])
+    ->middleware('auth')
+    ->name('booking.confirm');
 
-    return view('booking-confirmation', $data);
-})->middleware(['auth'])->name('booking.confirm');
+Route::get('/booking/{booking}/payment', [PaymentController::class, 'form'])
+    ->middleware('auth')
+    ->name('payment.form');
+
+Route::post('/booking/{booking}/payment', [PaymentController::class, 'store'])
+    ->middleware('auth')
+    ->name('payment.store');
 
 // Rute Profile Management
 Route::middleware('auth')->group(function () {
@@ -57,5 +55,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Memuat semua rute Login, Register, Logout dari Laravel Breeze.
-require __DIR__.'/auth.php';
+require __DIR__.'/auth.php'; // bawaan breeze (biarkan)
+
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        require base_path('routes/admin.php');
+    });
